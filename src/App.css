@@ -3,3 +3,14 @@
 	width: 80%;
 	margin: auto;
 }
+
+.datePicker {
+	text-align: center;
+	/* margin-top: -2px; */
+	padding: 0;
+}
+
+.date-div {
+	padding: 4px;
+	/* margin: 0; */
+}

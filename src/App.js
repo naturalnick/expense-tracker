@@ -1,6 +1,4 @@
-import React from "react";
-import "./App.css";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -10,22 +8,54 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 
-import DatePicker from "react-date-picker";
+import Expense from "./Expense";
+import "./App.css";
+
+//TODO add unique keys
+//TODO fix input arrangement
 
 let expenses = [];
 
 function App() {
-	const [inputs, setInputs] = useState("");
+	const expElements = expenses.map((exp) => {
+		return (
+			<Expense
+				type={exp.type}
+				description={exp.description}
+				amount={exp.amount}
+				date={exp.date}
+			/>
+		);
+	});
+
+	const [inputs, setInputs] = useState([]);
 
 	const handleChange = (event) => {
 		const name = event.target.name;
 		const value = event.target.value;
 		setInputs((values) => ({ ...values, [name]: value }));
+		event.preventDefault();
 	};
 
+	useEffect(() => {
+		//expenses.push(inputs);
+	});
+
 	const handleSubmit = (event) => {
+		const type = event.target.type.value;
+		const desc = event.target.description.value;
+		const date = event.target.date.value;
+		const amount = event.target.amount.value;
+
+		setInputs((values) => ({
+			type: type,
+			description: desc,
+			date: date,
+			amount: amount,
+		}));
+
+		expenses.push(inputs);
 		event.preventDefault();
-		console.log(inputs);
 	};
 
 	return (
@@ -33,8 +63,22 @@ function App() {
 			<h1>Expense Tracker</h1>
 			<Container>
 				<Form onSubmit={handleSubmit}>
-					<Row>
-						<Col className="p-2" sm={4}>
+					<Row className="pd-1">
+						<Col md="auto">
+							<InputGroup>
+								<InputGroup.Text>Date</InputGroup.Text>
+								<InputGroup.Text className="date-div">
+									<input
+										className="datePicker"
+										type="date"
+										name="date"
+										value={inputs.date || ""}
+										onChange={handleChange}
+									/>
+								</InputGroup.Text>
+							</InputGroup>
+						</Col>
+						<Col md={3}>
 							<Form.Select
 								name="type"
 								value={inputs.type || ""}
@@ -47,20 +91,9 @@ function App() {
 								<option value="Other">Other</option>
 							</Form.Select>
 						</Col>
-						<Col className="p-2" sm={8}>
-							<Form.Control
-								type="text"
-								name="description"
-								placeholder="Description"
-								value={inputs.description || ""}
-								onChange={handleChange}
-							/>
-						</Col>
-					</Row>
-					<Row>
-						<Col className="p-2" md={3} sm={5}>
+						<Col md={4}>
 							<InputGroup>
-								<InputGroup.Text id="basic-addon1">$</InputGroup.Text>
+								<InputGroup.Text>$</InputGroup.Text>
 								<Form.Control
 									type="text"
 									placeholder="0"
@@ -70,22 +103,24 @@ function App() {
 								/>
 							</InputGroup>
 						</Col>
-						<Col className="p-2 centered" md={6} sm={7}>
-							<InputGroup>
-								<InputGroup.Text id="basic-addon1">
-									Date{" "}
-								</InputGroup.Text>
-								<InputGroup.Text id="basic-addon1">
-									<DatePicker
-										name="date"
-										value={inputs.date || ""}
-										onChange={handleChange}
-									/>
-								</InputGroup.Text>
-							</InputGroup>
+					</Row>
+					<Row>
+						<Col md={9}>
+							<Form.Control
+								type="text"
+								name="description"
+								placeholder="Description"
+								value={inputs.description || ""}
+								onChange={handleChange}
+							/>
 						</Col>
-						<Col className="p-2" md={3} sm={12}>
-							<Button variant="primary" type="submit">
+						<Col className="d-grid" md={3}>
+							<Button
+								className="float-end"
+								variant="primary"
+								type="submit"
+								name="submit"
+							>
 								Add Expense
 							</Button>
 						</Col>
@@ -95,20 +130,13 @@ function App() {
 			<Table striped bordered hover>
 				<thead>
 					<tr>
-						<th>Form</th>
+						<th>Type</th>
 						<th>Description</th>
 						<th>Date</th>
 						<th>Amount</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>Card</td>
-						<td>Groceries</td>
-						<td>10/22</td>
-						<td>$100</td>
-					</tr>
-				</tbody>
+				<tbody id="expense-table">{expElements}</tbody>
 			</Table>
 		</div>
 	);
