@@ -14,10 +14,23 @@ import "./App.css";
 //TODO add unique keys
 //TODO fix input arrangement
 
-let expenses = [];
-
 function App() {
-	const expElements = expenses.map((exp) => {
+	const [inputs, setInputs] = useState({});
+
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		setInputs((pastValues) => ({ ...pastValues, [name]: value }));
+	};
+
+	const [expenses, setExpenses] = useState({});
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const id = Object.keys(expenses).length;
+		setExpenses((prevExpenses) => ({ ...prevExpenses, [id]: inputs }));
+	};
+
+	const expElements = Object.values(expenses).map((exp) => {
 		return (
 			<Expense
 				type={exp.type}
@@ -28,40 +41,10 @@ function App() {
 		);
 	});
 
-	const [inputs, setInputs] = useState([]);
-
-	const handleChange = (event) => {
-		const name = event.target.name;
-		const value = event.target.value;
-		setInputs((values) => ({ ...values, [name]: value }));
-		event.preventDefault();
-	};
-
-	useEffect(() => {
-		//expenses.push(inputs);
-	});
-
-	const handleSubmit = (event) => {
-		const type = event.target.type.value;
-		const desc = event.target.description.value;
-		const date = event.target.date.value;
-		const amount = event.target.amount.value;
-
-		setInputs((values) => ({
-			type: type,
-			description: desc,
-			date: date,
-			amount: amount,
-		}));
-
-		expenses.push(inputs);
-		event.preventDefault();
-	};
-
 	return (
 		<div className="App">
-			<h1>Expense Tracker</h1>
 			<Container>
+				<h1>Expense Tracker</h1>
 				<Form onSubmit={handleSubmit}>
 					<Row className="pd-1">
 						<Col md="auto">
@@ -126,18 +109,18 @@ function App() {
 						</Col>
 					</Row>
 				</Form>
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Date</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody id="expense-table">{expElements}</tbody>
+				</Table>
 			</Container>
-			<Table striped bordered hover>
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th>Description</th>
-						<th>Date</th>
-						<th>Amount</th>
-					</tr>
-				</thead>
-				<tbody id="expense-table">{expElements}</tbody>
-			</Table>
 		</div>
 	);
 }
