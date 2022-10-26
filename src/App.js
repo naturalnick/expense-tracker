@@ -13,6 +13,7 @@ import "./App.css";
 
 //TODO add unique keys
 //TODO fix input arrangement
+//TODO required fields and input check
 
 function App() {
 	const [inputs, setInputs] = useState({});
@@ -28,6 +29,7 @@ function App() {
 		event.preventDefault();
 		const id = Object.keys(expenses).length;
 		setExpenses((prevExpenses) => ({ ...prevExpenses, [id]: inputs }));
+		setInputs({});
 	};
 
 	const expElements = Object.values(expenses).map((exp) => {
@@ -46,7 +48,7 @@ function App() {
 			<Container>
 				<h1>Expense Tracker</h1>
 				<Form onSubmit={handleSubmit}>
-					<Row className="pd-1">
+					<Row>
 						<Col md="auto">
 							<InputGroup>
 								<InputGroup.Text>Date</InputGroup.Text>
@@ -61,19 +63,6 @@ function App() {
 								</InputGroup.Text>
 							</InputGroup>
 						</Col>
-						<Col md={3}>
-							<Form.Select
-								name="type"
-								value={inputs.type || ""}
-								onChange={handleChange}
-							>
-								<option>$ Type</option>
-								<option value="Card">Card</option>
-								<option value="Cash">Cash</option>
-								<option value="Crypto">Crypto</option>
-								<option value="Other">Other</option>
-							</Form.Select>
-						</Col>
 						<Col md={4}>
 							<InputGroup>
 								<InputGroup.Text>$</InputGroup.Text>
@@ -85,6 +74,19 @@ function App() {
 									onChange={handleChange}
 								/>
 							</InputGroup>
+						</Col>
+						<Col md="auto">
+							<Form.Select
+								name="type"
+								value={inputs.type || ""}
+								onChange={handleChange}
+							>
+								<option>$ Type</option>
+								<option value="Card">Card</option>
+								<option value="Cash">Cash</option>
+								<option value="Crypto">Crypto</option>
+								<option value="Other">Other</option>
+							</Form.Select>
 						</Col>
 					</Row>
 					<Row>
@@ -98,12 +100,7 @@ function App() {
 							/>
 						</Col>
 						<Col className="d-grid" md={3}>
-							<Button
-								className="float-end"
-								variant="primary"
-								type="submit"
-								name="submit"
-							>
+							<Button variant="primary" type="submit" name="submit">
 								Add Expense
 							</Button>
 						</Col>
