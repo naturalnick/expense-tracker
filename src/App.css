@@ -2,6 +2,7 @@
 	text-align: center;
 	width: 80%;
 	margin: auto;
+	max-width: 1000px;
 }
 
 .datePicker {
@@ -10,4 +11,21 @@
 
 .date-div {
 	height: 38px;
+}
+
+.date-group {
+	width: 100%;
+}
+
+.expTable {
+	text-align: left;
+}
+
+.delete-button {
+	width: 100%;
+	height: 100%;
+}
+
+.center {
+	justify-content: center;
 }

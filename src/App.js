@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -12,7 +12,6 @@ import Expense from "./Expense";
 import "./App.css";
 
 //TODO add unique keys
-//TODO fix input arrangement
 //TODO required fields and input check
 
 function App() {
@@ -20,7 +19,12 @@ function App() {
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		setInputs((pastValues) => ({ ...pastValues, [name]: value }));
+		const id = new Date().getTime(); //id for unique key
+		setInputs((pastValues) => ({
+			...pastValues,
+			[name]: value,
+			id: id,
+		}));
 	};
 
 	const [expenses, setExpenses] = useState({});
@@ -28,29 +32,42 @@ function App() {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const id = Object.keys(expenses).length;
-		setExpenses((prevExpenses) => ({ ...prevExpenses, [id]: inputs }));
+		setExpenses((prevExpenses) => {
+			return { ...prevExpenses, [id]: inputs };
+		});
 		setInputs({});
 	};
 
-	const expElements = Object.values(expenses).map((exp) => {
+	const expenseElements = Object.values(expenses).map((expense) => {
 		return (
 			<Expense
-				type={exp.type}
-				description={exp.description}
-				amount={exp.amount}
-				date={exp.date}
+				key={expense.id}
+				date={expense.date}
+				amount={expense.amount}
+				type={expense.type}
+				description={expense.description}
+				deleteExpense={() => deleteExpense(expense.id)}
 			/>
 		);
 	});
+
+	function deleteExpense(id) {
+		setExpenses((prevExpenses) => {
+			//flatmap destructures arrays and removes empty arrays, probably not best option to delete
+			return Object.values(prevExpenses).flatMap((expense) => {
+				return expense.id === id ? [] : expense;
+			});
+		});
+	}
 
 	return (
 		<div className="App">
 			<Container>
 				<h1>Expense Tracker</h1>
 				<Form onSubmit={handleSubmit}>
-					<Row>
-						<Col md="auto">
-							<InputGroup>
+					<Row className="center">
+						<Col md="auto pb-2">
+							<InputGroup className="date-group mx-auto">
 								<InputGroup.Text>Date</InputGroup.Text>
 								<InputGroup.Text className="date-div">
 									<input
@@ -63,7 +80,7 @@ function App() {
 								</InputGroup.Text>
 							</InputGroup>
 						</Col>
-						<Col md={4}>
+						<Col md={4} className="pb-2">
 							<InputGroup>
 								<InputGroup.Text>$</InputGroup.Text>
 								<Form.Control
@@ -75,7 +92,7 @@ function App() {
 								/>
 							</InputGroup>
 						</Col>
-						<Col md="auto">
+						<Col md="auto" className="pb-2">
 							<Form.Select
 								name="type"
 								value={inputs.type || ""}
@@ -90,7 +107,7 @@ function App() {
 						</Col>
 					</Row>
 					<Row>
-						<Col md={9}>
+						<Col md={9} className="pb-2">
 							<Form.Control
 								type="text"
 								name="description"
@@ -99,7 +116,7 @@ function App() {
 								onChange={handleChange}
 							/>
 						</Col>
-						<Col className="d-grid" md={3}>
+						<Col className="d-grid pb-2" md={3}>
 							<Button variant="primary" type="submit" name="submit">
 								Add Expense
 							</Button>
@@ -109,13 +126,14 @@ function App() {
 				<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>Type</th>
-							<th>Description</th>
 							<th>Date</th>
 							<th>Amount</th>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Delete</th>
 						</tr>
 					</thead>
-					<tbody id="expense-table">{expElements}</tbody>
+					<tbody id="expense-table">{expenseElements}</tbody>
 				</Table>
 			</Container>
 		</div>
