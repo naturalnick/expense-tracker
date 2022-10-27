@@ -2,7 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import "./App.css";
 
-export default function Expense(props) {
+export default function ExpenseRow(props) {
 	return (
 		<tr className="expense-row">
 			<td>{props.date}</td>
