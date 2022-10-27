@@ -71,7 +71,7 @@ function App() {
 			<Container>
 				<h1>Expense Tracker</h1>
 				<Form onSubmit={handleSubmit}>
-					<Row className="center">
+					<Row>
 						<Col md={4} className="pb-2">
 							<InputGroup className="date-group mx-auto">
 								<InputGroup.Text>Date</InputGroup.Text>
@@ -89,7 +89,7 @@ function App() {
 							<InputGroup>
 								<InputGroup.Text>$</InputGroup.Text>
 								<Form.Control
-									type="text"
+									type="number"
 									placeholder="0"
 									name="amount"
 									value={inputs.amount || ""}
@@ -108,6 +108,7 @@ function App() {
 								<option value="">Payment Type</option>
 								<option value="Card">Card</option>
 								<option value="Cash">Cash</option>
+								<option value="Check">Cash</option>
 								<option value="Crypto">Crypto</option>
 								<option value="Other">Other</option>
 							</Form.Select>
@@ -132,14 +133,14 @@ function App() {
 					</Row>
 				</Form>
 
-				<Table striped bordered hover>
+				<Table className="expense-table" striped bordered hover>
 					<thead>
 						<tr>
-							<th className="col-date">Date</th>
-							<th>Amount</th>
-							<th>Type</th>
-							<th>Description</th>
-							<th>Delete</th>
+							<th width="20%">Date</th>
+							<th width="20%">Amount</th>
+							<th width="20%">Type</th>
+							<th width="35%">Description</th>
+							<th width="5%">Delete</th>
 						</tr>
 					</thead>
 					<tbody id="expense-table">{expenseElements}</tbody>

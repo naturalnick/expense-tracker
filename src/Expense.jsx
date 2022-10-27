@@ -4,17 +4,13 @@ import "./App.css";
 
 export default function Expense(props) {
 	return (
-		<tr className="expTable">
-			<td width="20%">{props.date}</td>
-			<td width="20%">{props.amount}</td>
-			<td width="20%">{props.type}</td>
-			<td width="35%">{props.description}</td>
-			<td width="5%">
-				<Button
-					variant="danger"
-					className="delete-button"
-					onClick={props.deleteExpense}
-				>
+		<tr className="expense-row">
+			<td>{props.date}</td>
+			<td>{props.amount}</td>
+			<td>{props.type}</td>
+			<td>{props.description}</td>
+			<td>
+				<Button variant="danger" onClick={props.deleteExpense}>
 					X
 				</Button>
 			</td>
