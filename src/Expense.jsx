@@ -1,4 +1,6 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
+import "./App.css";
 
 export default function Expense(props) {
 	return (
@@ -8,9 +10,13 @@ export default function Expense(props) {
 			<td width="20%">{props.type}</td>
 			<td width="35%">{props.description}</td>
 			<td width="5%">
-				<button className="delete-button" onClick={props.deleteExpense}>
+				<Button
+					variant="danger"
+					className="delete-button"
+					onClick={props.deleteExpense}
+				>
 					X
-				</button>
+				</Button>
 			</td>
 		</tr>
 	);

@@ -5,6 +5,10 @@
 	max-width: 1000px;
 }
 
+.col-date {
+	background-color: gray;
+}
+
 .datePicker {
 	text-align: center;
 }

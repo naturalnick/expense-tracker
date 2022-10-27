@@ -72,22 +72,20 @@ function App() {
 				<h1>Expense Tracker</h1>
 				<Form onSubmit={handleSubmit}>
 					<Row className="center">
-						<Col md={5} className="pb-2">
+						<Col md={4} className="pb-2">
 							<InputGroup className="date-group mx-auto">
 								<InputGroup.Text>Date</InputGroup.Text>
-								<InputGroup.Text className="date-div">
-									<input
-										className="datePicker"
-										type="date"
-										name="date"
-										value={inputs.date || ""}
-										onChange={handleChange}
-										required
-									/>
-								</InputGroup.Text>
+								<Form.Control
+									className="date-div"
+									type="date"
+									name="date"
+									value={inputs.date || ""}
+									onChange={handleChange}
+									required
+								/>
 							</InputGroup>
 						</Col>
-						<Col md={3} className="pb-2">
+						<Col md={4} className="pb-2">
 							<InputGroup>
 								<InputGroup.Text>$</InputGroup.Text>
 								<Form.Control
@@ -137,7 +135,7 @@ function App() {
 				<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>Date</th>
+							<th className="col-date">Date</th>
 							<th>Amount</th>
 							<th>Type</th>
 							<th>Description</th>
