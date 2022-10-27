@@ -11,6 +11,8 @@ import Table from "react-bootstrap/Table";
 import Expense from "./Expense";
 import "./App.css";
 
+//TODO Fix mobile presentation
+
 function App() {
 	const [inputs, setInputs] = useState({});
 
@@ -31,8 +33,7 @@ function App() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		let id = new Date().getTime().toString(); //id for unique key
-		id = id.substring(3);
+		let id = new Date().getTime().toString().substring(3); //id for unique key
 		setExpenses((prevExpenses) => {
 			return { ...prevExpenses, [id]: inputs };
 		});
@@ -44,7 +45,6 @@ function App() {
 	}, [expenses]);
 
 	const expenseElements = Object.values(expenses).map((expense) => {
-		console.log(expense.id);
 		return (
 			<Expense
 				key={expense.id}
@@ -90,7 +90,7 @@ function App() {
 								<InputGroup.Text>$</InputGroup.Text>
 								<Form.Control
 									type="number"
-									placeholder="0"
+									placeholder="0.00"
 									name="amount"
 									value={inputs.amount || ""}
 									onChange={handleChange}
