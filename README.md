@@ -11,7 +11,7 @@ See it in action [here](https://nicks-expense-tracker.herokuapp.com).
 <br>
 
 Screenshot:<br>
-<img src="assets/screenshot.png" width="50%">
+<img src="assets/screenshot.png" width="75%">
 
 ## Summary
 
