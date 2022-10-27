@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -16,7 +16,7 @@ function App() {
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		const id = new Date().getTime(); //id for unique key
+		const id = new Date().getTime().toString(); //id for unique key
 		setInputs((pastValues) => ({
 			...pastValues,
 			[name]: value,
@@ -24,17 +24,27 @@ function App() {
 		}));
 	};
 
-	const [expenses, setExpenses] = useState({});
+	const [expenses, setExpenses] = useState(() => {
+		const localData = localStorage.getItem("expenses");
+		return localData ? JSON.parse(localData) : {};
+	});
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const id = Object.keys(expenses).length;
+		let id = new Date().getTime().toString(); //id for unique key
+		id = id.substring(3);
 		setExpenses((prevExpenses) => {
 			return { ...prevExpenses, [id]: inputs };
 		});
 		setInputs({});
 	};
+
+	useEffect(() => {
+		localStorage.setItem("expenses", JSON.stringify(expenses));
+	}, [expenses]);
+
 	const expenseElements = Object.values(expenses).map((expense) => {
+		console.log(expense.id);
 		return (
 			<Expense
 				key={expense.id}
@@ -62,7 +72,7 @@ function App() {
 				<h1>Expense Tracker</h1>
 				<Form onSubmit={handleSubmit}>
 					<Row className="center">
-						<Col md="auto pb-2">
+						<Col md={5} className="pb-2">
 							<InputGroup className="date-group mx-auto">
 								<InputGroup.Text>Date</InputGroup.Text>
 								<InputGroup.Text className="date-div">
@@ -77,7 +87,7 @@ function App() {
 								</InputGroup.Text>
 							</InputGroup>
 						</Col>
-						<Col md={4} className="pb-2">
+						<Col md={3} className="pb-2">
 							<InputGroup>
 								<InputGroup.Text>$</InputGroup.Text>
 								<Form.Control
@@ -90,7 +100,7 @@ function App() {
 								/>
 							</InputGroup>
 						</Col>
-						<Col md="auto" className="pb-2">
+						<Col md={4} className="pb-2">
 							<Form.Select
 								name="type"
 								value={inputs.type || ""}
