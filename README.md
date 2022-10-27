@@ -1,4 +1,4 @@
-# Reactive Expense Tracker
+# React Expense Tracker
 
 <br>
 
