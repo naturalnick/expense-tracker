@@ -11,9 +11,6 @@ import Table from "react-bootstrap/Table";
 import Expense from "./Expense";
 import "./App.css";
 
-//TODO add unique keys
-//TODO required fields and input check
-
 function App() {
 	const [inputs, setInputs] = useState({});
 
@@ -37,7 +34,6 @@ function App() {
 		});
 		setInputs({});
 	};
-
 	const expenseElements = Object.values(expenses).map((expense) => {
 		return (
 			<Expense
@@ -53,7 +49,7 @@ function App() {
 
 	function deleteExpense(id) {
 		setExpenses((prevExpenses) => {
-			//flatmap destructures arrays and removes empty arrays, probably not best option to delete
+			//flatmap destructures arrays and removes empty arrays, probably not best option for deleting
 			return Object.values(prevExpenses).flatMap((expense) => {
 				return expense.id === id ? [] : expense;
 			});
@@ -76,6 +72,7 @@ function App() {
 										name="date"
 										value={inputs.date || ""}
 										onChange={handleChange}
+										required
 									/>
 								</InputGroup.Text>
 							</InputGroup>
@@ -89,6 +86,7 @@ function App() {
 									name="amount"
 									value={inputs.amount || ""}
 									onChange={handleChange}
+									required
 								/>
 							</InputGroup>
 						</Col>
@@ -97,8 +95,9 @@ function App() {
 								name="type"
 								value={inputs.type || ""}
 								onChange={handleChange}
+								required
 							>
-								<option>$ Type</option>
+								<option value="">Payment Type</option>
 								<option value="Card">Card</option>
 								<option value="Cash">Cash</option>
 								<option value="Crypto">Crypto</option>
@@ -114,6 +113,7 @@ function App() {
 								placeholder="Description"
 								value={inputs.description || ""}
 								onChange={handleChange}
+								required
 							/>
 						</Col>
 						<Col className="d-grid pb-2" md={3}>
@@ -123,6 +123,7 @@ function App() {
 						</Col>
 					</Row>
 				</Form>
+
 				<Table striped bordered hover>
 					<thead>
 						<tr>
