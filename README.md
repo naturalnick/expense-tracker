@@ -21,7 +21,7 @@ useState, setState and useEffect were all challenging concepts at first, but I c
 
 The form and table are assembled with Bootstrap components, which made it pretty quick to focus on the rest of this project.
 
-I also learned how to use localstore for the first time.
+I also learned how to use localstorage for the first time.
 
 Looking forward to working more with React...
 
