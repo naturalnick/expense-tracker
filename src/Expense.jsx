@@ -6,10 +6,10 @@ export default function Expense(props) {
 	return (
 		<tr className="expense-row">
 			<td>{props.date}</td>
-			<td>{props.amount}</td>
+			<td>{`$ ${props.amount}`}</td>
 			<td>{props.type}</td>
 			<td>{props.description}</td>
-			<td>
+			<td className="delete">
 				<Button variant="danger" onClick={props.deleteExpense}>
 					X
 				</Button>
