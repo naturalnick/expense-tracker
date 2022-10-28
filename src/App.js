@@ -41,9 +41,8 @@ function App() {
 
 	function handleDelete(id) {
 		setExpenses((prevExpenses) => {
-			//flatmap destructures arrays and removes empty arrays, probably not best option for deleting
-			return Object.values(prevExpenses).flatMap((expense) => {
-				return expense.id === id ? [] : expense;
+			return Object.values(prevExpenses).filter((expense) => {
+				return expense.id !== id;
 			});
 		});
 	}
