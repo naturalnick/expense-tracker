@@ -17,17 +17,17 @@ export default function ExpenseTable(props) {
 		);
 	});
 	return (
-		<Table className="expense-table" striped bordered hover>
+		<Table className="expense-table" striped hover>
 			<thead>
 				<tr>
 					<th width="20%">Date</th>
 					<th width="20%">Amount</th>
 					<th width="20%">Type</th>
 					<th width="35%">Description</th>
-					<th width="5%">Delete</th>
+					<th width="5%"> </th>
 				</tr>
 			</thead>
-			<tbody id="expense-table">{expenseElements}</tbody>
+			<tbody>{expenseElements}</tbody>
 		</Table>
 	);
 }
