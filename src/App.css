@@ -56,8 +56,4 @@ h1 {
 		text-align: left;
 		padding-right: 50%;
 	}
-
-	.expense-row .delete {
-		display: none;
-	}
 }
