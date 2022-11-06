@@ -1,7 +1,8 @@
 .App {
 	text-align: center;
-	width: 80%;
+	width: 90%;
 	margin: auto;
+	margin-top: 20px;
 	max-width: 1000px;
 	background-color: #a7d2cb;
 	border-radius: 30px;
@@ -12,48 +13,9 @@ h1 {
 	margin-bottom: 20px;
 }
 
-.date-div {
-	height: 38px;
-}
-
-.expense-row {
-	text-align: left;
-}
-
-.expense-row .delete {
-	text-align: center;
-	padding: 0;
-	padding-top: 1px;
-}
-
-.expense-table {
-	margin-top: 10px;
-	background-color: white;
-}
-
 @media only screen and (max-width: 766px) {
-	table,
-	thead,
-	tbody,
-	th,
-	td,
-	tr {
-		display: block;
-	}
-
-	thead tr {
-		display: none;
-	}
-
-	tr {
-		border: 1px solid #ccc;
-	}
-
-	td {
-		border: none;
-		border-bottom: 1px solid #eee;
-		position: relative;
-		text-align: left;
-		padding-right: 50%;
+	.App {
+		width: 95%;
+		padding: 10px;
 	}
 }

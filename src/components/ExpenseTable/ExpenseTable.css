@@ -1,0 +1,31 @@
+.expense-table {
+	margin-top: 10px;
+	background-color: white;
+}
+
+@media only screen and (max-width: 766px) {
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+	}
+
+	thead tr {
+		display: none;
+	}
+
+	tr {
+		border: 1px solid #ccc;
+	}
+
+	td {
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		text-align: left;
+		padding-right: 50%;
+	}
+}

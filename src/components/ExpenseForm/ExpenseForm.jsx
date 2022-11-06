@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -6,11 +6,28 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import "./App.css";
+import "./ExpenseForm.css";
 
-export default function ExpenseRow(props) {
+export default function ExpenseRow({ expense, handleSubmit }) {
+	const [date, setDate] = useState("");
+	const [amount, setAmount] = useState(0);
+	const [type, setType] = useState("");
+	const [desc, setDesc] = useState("");
+
+	function clearForm() {
+		setDate("");
+		setAmount(0);
+		setType("");
+		setDesc("");
+	}
+
 	return (
-		<Form onSubmit={props.handleSubmit}>
+		<Form
+			onSubmit={(e) => {
+				handleSubmit(e, date, amount, type, desc);
+				clearForm();
+			}}
+		>
 			<Row>
 				<Col md={4} className="pb-2">
 					<InputGroup className="date-group mx-auto">
@@ -19,8 +36,10 @@ export default function ExpenseRow(props) {
 							className="date-div"
 							type="date"
 							name="date"
-							value={props.expense.date || ""}
-							onChange={props.handleChange}
+							value={date || ""}
+							onChange={(e) => {
+								setDate(e.target.value);
+							}}
 							required
 						/>
 					</InputGroup>
@@ -33,8 +52,10 @@ export default function ExpenseRow(props) {
 							placeholder="0.00"
 							step=".01"
 							name="amount"
-							value={props.expense.amount || ""}
-							onChange={props.handleChange}
+							value={amount || ""}
+							onChange={(e) => {
+								setAmount(e.target.value);
+							}}
 							required
 						/>
 					</InputGroup>
@@ -42,8 +63,10 @@ export default function ExpenseRow(props) {
 				<Col md={4} className="pb-2">
 					<Form.Select
 						name="type"
-						value={props.expense.type || ""}
-						onChange={props.handleChange}
+						value={type || ""}
+						onChange={(e) => {
+							setType(e.target.value);
+						}}
 						required
 					>
 						<option value="">Payment Type</option>
@@ -61,8 +84,10 @@ export default function ExpenseRow(props) {
 						type="text"
 						name="description"
 						placeholder="Description"
-						value={props.expense.description || ""}
-						onChange={props.handleChange}
+						value={desc || ""}
+						onChange={(e) => {
+							setDesc(e.target.value);
+						}}
 						required
 					/>
 				</Col>

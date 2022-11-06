@@ -1,0 +1,32 @@
+.expense-row {
+	text-align: left;
+}
+
+td.delete {
+	text-align: center;
+	padding: 0;
+	padding-top: 1px;
+}
+
+@media only screen and (max-width: 766px) {
+	.expense-row {
+		position: relative;
+	}
+
+	.date {
+		font-weight: bold;
+		width: 50%;
+	}
+
+	.amount {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 50%;
+		text-align: right;
+	}
+
+	td.delete {
+		text-align: right;
+	}
+}

@@ -17,7 +17,7 @@ Screenshot:<br>
 
 This project was my introduction to React. I was immediately intrigued by the syntax and how it played off of HTML's element style to create components. It was also interesting to learn an alternative to GET/POST to send/receive form data.
 
-useState, setState and useEffect were all challenging concepts at first, but I caught on quickly and see just how useful they can be.
+useState, setState and useEffect were all confusing concepts at first, but I caught on quickly and see just how useful they can be.
 
 The form and table are assembled with Bootstrap components, which made it pretty quick to focus on the rest of this project.
 

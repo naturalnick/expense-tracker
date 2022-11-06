@@ -2,38 +2,34 @@ import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
 
-import ExpenseForm from "./ExpenseForm";
-import ExpenseTable from "./ExpenseTable";
+import ExpenseForm from "./components/ExpenseForm/ExpenseForm";
+import ExpenseTable from "./components/ExpenseTable/ExpenseTable";
 import "./App.css";
 
 //TODO Fix mobile presentation
 
 function App() {
-	const [inputs, setInputs] = useState({});
-
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-		const id = new Date().getTime().toString(); //id for unique key
-		setInputs((pastValues) => ({
-			...pastValues,
-			[name]: value,
-			id: id,
-		}));
-	};
-
 	const [expenses, setExpenses] = useState(() => {
 		const localData = localStorage.getItem("expenses");
 		return localData ? JSON.parse(localData) : {};
 	});
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
+	function handleSubmit(e, date, amount, type, desc) {
+		e.preventDefault();
 		let id = new Date().getTime().toString().substring(3); //id for unique key
 		setExpenses((prevExpenses) => {
-			return { ...prevExpenses, [id]: inputs };
+			return {
+				...prevExpenses,
+				[id]: {
+					id: id,
+					date: date,
+					amount: amount,
+					type: type,
+					desc: desc,
+				},
+			};
 		});
-		setInputs({});
-	};
+	}
 
 	useEffect(() => {
 		localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -51,11 +47,7 @@ function App() {
 		<div className="App">
 			<Container>
 				<h1>Expense Tracker</h1>
-				<ExpenseForm
-					handleSubmit={handleSubmit}
-					handleChange={handleChange}
-					expense={inputs}
-				/>
+				<ExpenseForm handleSubmit={handleSubmit} />
 				<ExpenseTable handleDelete={handleDelete} expenses={expenses} />
 			</Container>
 		</div>
