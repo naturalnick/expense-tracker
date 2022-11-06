@@ -72,7 +72,7 @@ export default function ExpenseRow({ expense, handleSubmit }) {
 						<option value="">Payment Type</option>
 						<option value="Card">Card</option>
 						<option value="Cash">Cash</option>
-						<option value="Check">Cash</option>
+						<option value="Check">Check</option>
 						<option value="Crypto">Crypto</option>
 						<option value="Other">Other</option>
 					</Form.Select>
